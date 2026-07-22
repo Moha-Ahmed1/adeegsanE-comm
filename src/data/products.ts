@@ -5,6 +5,9 @@ export type Category =
   | "Audio"
   | "Gaming"
   | "Cameras";
+   "Cameras";
+
+
 
 export interface Product {
   id: number;

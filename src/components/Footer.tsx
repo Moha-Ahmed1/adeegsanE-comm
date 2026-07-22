@@ -43,12 +43,33 @@ const columns = [
 
 export default function Footer() {
   return (
-    <footer className="relative bg-zinc-950 px-6 pb-10 pt-16 text-zinc-400">
-      <div className="mx-auto max-w-7xl">
+    <footer className="relative overflow-hidden bg-zinc-950 px-6 pb-10 pt-16 text-zinc-400">
+      {/* Ambient radial glow */}
+      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(238,28,62,0.12),transparent_55%)]" />
+      
+      {/* Gradient top border */}
+      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-[#ee1c3e] to-transparent opacity-60" />
+
+      <div className="relative mx-auto max-w-7xl">
         <div className="grid grid-cols-2 gap-8 md:grid-cols-6">
           <div className="col-span-2">
-            <Logo />
-            <p className="mt-4 max-w-xs text-sm text-zinc-400">
+            {/* 
+              OPTION 1: Force your existing Logo component to be white.
+              The [&_*] ensures any inner paths or text become white.
+            */}
+            <div className="text-white [&_*]:fill-white [&_*]:text-white">
+              <Logo className="text-white" />
+            </div>
+
+            {/* 
+              OPTION 2: If the above doesn't work, just use this beautiful white ADEEGSAN text logo:
+              <div className="flex items-center gap-1.5">
+                <span className="text-2xl font-extrabold tracking-tight text-white">ADEEGSAN</span>
+                <span className="h-2 w-2 rounded-full bg-[#ee1c3e]" />
+              </div> 
+            */}
+
+            <p className="mt-4 max-w-xs text-sm leading-relaxed text-zinc-400">
               Your one-stop shop for the latest phones, computers, smart
               watches, and audio gear — with unbeatable prices.
             </p>
@@ -57,9 +78,9 @@ export default function Footer() {
                 <a
                   key={i}
                   href="#"
-                  className="flex h-9 w-9 items-center justify-center rounded-full bg-white/5 text-zinc-300 transition-all duration-300 hover:-translate-y-1 hover:bg-[#ee1c3e] hover:text-white"
+                  className="group flex h-10 w-10 items-center justify-center rounded-full border border-white/10 bg-white/5 text-zinc-300 transition-all duration-300 hover:-translate-y-1 hover:border-[#ee1c3e] hover:bg-[#ee1c3e] hover:text-white hover:shadow-[0_4px_14px_rgba(238,28,62,0.4)]"
                 >
-                  <Icon className="h-4 w-4" />
+                  <Icon className="h-4 w-4 transition-transform duration-300 group-hover:scale-110" />
                 </a>
               ))}
             </div>
@@ -67,14 +88,15 @@ export default function Footer() {
 
           {columns.map((col) => (
             <div key={col.title}>
-              <h4 className="text-sm font-semibold text-white">{col.title}</h4>
+              <h4 className="text-sm font-semibold uppercase tracking-wider text-white">{col.title}</h4>
               <ul className="mt-4 space-y-3">
                 {col.links.map((link) => (
                   <li key={link}>
                     <a
                       href="#"
-                      className="text-sm text-zinc-400 transition-colors hover:text-[#ee1c3e]"
+                      className="group inline-flex items-center text-sm text-zinc-400 transition-colors hover:text-[#ee1c3e]"
                     >
+                      <span className="mr-1 h-px w-0 bg-[#ee1c3e] transition-all duration-300 group-hover:w-3" />
                       {link}
                     </a>
                   </li>
@@ -85,7 +107,9 @@ export default function Footer() {
         </div>
 
         <div className="mt-14 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-8 text-sm text-zinc-500 sm:flex-row">
-          <p>© {new Date().getFullYear()} Adeegsan Store. All rights reserved.</p>
+          <p>
+            © {new Date().getFullYear()} <span className="font-bold text-white">ADEEGSAN</span> Store. All rights reserved.
+          </p>
           <p>Designed for Mo.</p>
         </div>
       </div>
